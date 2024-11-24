@@ -1,5 +1,3 @@
-
-
 name: Docker Compose CI/CD to Elastic Beanstalk
 
 on:
@@ -39,14 +37,13 @@ jobs:
       run: zip -r deploy.zip . -x '*.git*'
     
     - name: Deploy to Elastic Beanstalk
+      # if: github.ref == 'refs/heads/main' && success()
       uses: einaregilsson/beanstalk-deploy@v21
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: us-west-2
-        application_name: emoji-test
-        environment_name: Emoji-test-env
+        application_name: bonni-test
+        environment_name: Bonni-test-env
         version_label: ${{ github.run_number }}-${{ github.sha }}
         deployment_package: deploy.zip
-
-    
